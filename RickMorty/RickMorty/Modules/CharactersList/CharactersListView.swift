@@ -27,8 +27,18 @@ struct CharacterListView: View {
                                 Text(character.species)
                                     .font(.subheadline)
                                     .foregroundColor(.gray)
+                                Text(character.status)
+                                    .font(.subheadline)
+                                    .foregroundColor(.gray)
                             }
                         }
+                        .onAppear {
+                               if character.id == viewModel.characters.last?.id {
+                                   Task {
+                                       await viewModel.fetchCharacters()
+                                   }
+                               }
+                           }
                         .padding(.vertical, 4)
                     }
             .navigationTitle("Personajes")
