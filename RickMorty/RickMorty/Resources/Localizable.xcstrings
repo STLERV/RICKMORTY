@@ -1,6 +1,18 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "%@:" : {
+
+    },
+    "Cancelar" : {
+
+    },
+    "Cargando personajes..." : {
+
+    },
+    "Error" : {
+
+    },
     "Hello, world!" : {
 
     },
@@ -8,6 +20,9 @@
       "extractionState" : "manual"
     },
     "Personajes" : {
+
+    },
+    "Reintentar" : {
 
     }
   },

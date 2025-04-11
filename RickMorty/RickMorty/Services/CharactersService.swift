@@ -6,10 +6,14 @@
 //
 import Foundation
 
-class CharacterService {
-    private let apiService: APIService
+protocol CharacterServiceProtocol {
+    func fetchCharacters(page: Int) async throws -> [CharacterDTO]
+}
 
-    init(apiService: APIService = DefaultAPIService()) {
+class CharacterService: CharacterServiceProtocol {
+    private let apiService: APIServiceProtocol
+
+    init(apiService: APIServiceProtocol = APIService()) {
         self.apiService = apiService
     }
 

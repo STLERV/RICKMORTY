@@ -7,14 +7,7 @@
 	objects = {
 
 /* Begin PBXContainerItemProxy section */
-		EE5CB3FA2DA93A5C00735009 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = EE5CB3E12DA93A5A00735009 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = EE5CB3E82DA93A5A00735009;
-			remoteInfo = RickMorty;
-		};
-		EE5CB4042DA93A5C00735009 /* PBXContainerItemProxy */ = {
+		EE0D34222DA9AEB700116C22 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = EE5CB3E12DA93A5A00735009 /* Project object */;
 			proxyType = 1;
@@ -24,61 +17,32 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EE0D341E2DA9AEB700116C22 /* RickMortyTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RickMortyTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE5CB3E92DA93A5A00735009 /* RickMorty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RickMorty.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		EE5CB3F92DA93A5C00735009 /* RickMortyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RickMortyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		EE5CB4032DA93A5C00735009 /* RickMortyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RickMortyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		EEE728662DA9498B0092A3BF /* Exceptions for "RickMorty" folder in "RickMortyTests" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Resources/Localizable.xcstrings,
-			);
-			target = EE5CB3F82DA93A5C00735009 /* RickMortyTests */;
-		};
-		EEE728672DA9498B0092A3BF /* Exceptions for "RickMorty" folder in "RickMortyUITests" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Resources/Localizable.xcstrings,
-			);
-			target = EE5CB4022DA93A5C00735009 /* RickMortyUITests */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		EE5CB3EB2DA93A5A00735009 /* RickMorty */ = {
+		EE0D341F2DA9AEB700116C22 /* RickMortyTest */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				EEE728662DA9498B0092A3BF /* Exceptions for "RickMorty" folder in "RickMortyTests" target */,
-				EEE728672DA9498B0092A3BF /* Exceptions for "RickMorty" folder in "RickMortyUITests" target */,
-			);
-			path = RickMorty;
+			path = RickMortyTest;
 			sourceTree = "<group>";
 		};
-		EE5CB4062DA93A5C00735009 /* RickMortyUITests */ = {
+		EE5CB3EB2DA93A5A00735009 /* RickMorty */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = RickMortyUITests;
+			path = RickMorty;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		EE0D341B2DA9AEB700116C22 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EE5CB3E62DA93A5A00735009 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		EE5CB3F62DA93A5C00735009 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		EE5CB4002DA93A5C00735009 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -92,7 +56,7 @@
 			isa = PBXGroup;
 			children = (
 				EE5CB3EB2DA93A5A00735009 /* RickMorty */,
-				EE5CB4062DA93A5C00735009 /* RickMortyUITests */,
+				EE0D341F2DA9AEB700116C22 /* RickMortyTest */,
 				EE5CB3EA2DA93A5A00735009 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -101,8 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				EE5CB3E92DA93A5A00735009 /* RickMorty.app */,
-				EE5CB3F92DA93A5C00735009 /* RickMortyTests.xctest */,
-				EE5CB4032DA93A5C00735009 /* RickMortyUITests.xctest */,
+				EE0D341E2DA9AEB700116C22 /* RickMortyTest.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -110,6 +73,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		EE0D341D2DA9AEB700116C22 /* RickMortyTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EE0D34242DA9AEB700116C22 /* Build configuration list for PBXNativeTarget "RickMortyTest" */;
+			buildPhases = (
+				EE0D341A2DA9AEB700116C22 /* Sources */,
+				EE0D341B2DA9AEB700116C22 /* Frameworks */,
+				EE0D341C2DA9AEB700116C22 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EE0D34232DA9AEB700116C22 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				EE0D341F2DA9AEB700116C22 /* RickMortyTest */,
+			);
+			name = RickMortyTest;
+			packageProductDependencies = (
+			);
+			productName = RickMortyTest;
+			productReference = EE0D341E2DA9AEB700116C22 /* RickMortyTest.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		EE5CB3E82DA93A5A00735009 /* RickMorty */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = EE5CB40D2DA93A5C00735009 /* Build configuration list for PBXNativeTarget "RickMorty" */;
@@ -132,49 +118,6 @@
 			productReference = EE5CB3E92DA93A5A00735009 /* RickMorty.app */;
 			productType = "com.apple.product-type.application";
 		};
-		EE5CB3F82DA93A5C00735009 /* RickMortyTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = EE5CB4102DA93A5C00735009 /* Build configuration list for PBXNativeTarget "RickMortyTests" */;
-			buildPhases = (
-				EE5CB3F52DA93A5C00735009 /* Sources */,
-				EE5CB3F62DA93A5C00735009 /* Frameworks */,
-				EE5CB3F72DA93A5C00735009 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				EE5CB3FB2DA93A5C00735009 /* PBXTargetDependency */,
-			);
-			name = RickMortyTests;
-			packageProductDependencies = (
-			);
-			productName = RickMortyTests;
-			productReference = EE5CB3F92DA93A5C00735009 /* RickMortyTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		EE5CB4022DA93A5C00735009 /* RickMortyUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = EE5CB4132DA93A5C00735009 /* Build configuration list for PBXNativeTarget "RickMortyUITests" */;
-			buildPhases = (
-				EE5CB3FF2DA93A5C00735009 /* Sources */,
-				EE5CB4002DA93A5C00735009 /* Frameworks */,
-				EE5CB4012DA93A5C00735009 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				EE5CB4052DA93A5C00735009 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				EE5CB4062DA93A5C00735009 /* RickMortyUITests */,
-			);
-			name = RickMortyUITests;
-			packageProductDependencies = (
-			);
-			productName = RickMortyUITests;
-			productReference = EE5CB4032DA93A5C00735009 /* RickMortyUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -185,16 +128,12 @@
 				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1620;
 				TargetAttributes = {
+					EE0D341D2DA9AEB700116C22 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = EE5CB3E82DA93A5A00735009;
+					};
 					EE5CB3E82DA93A5A00735009 = {
 						CreatedOnToolsVersion = 16.2;
-					};
-					EE5CB3F82DA93A5C00735009 = {
-						CreatedOnToolsVersion = 16.2;
-						TestTargetID = EE5CB3E82DA93A5A00735009;
-					};
-					EE5CB4022DA93A5C00735009 = {
-						CreatedOnToolsVersion = 16.2;
-						TestTargetID = EE5CB3E82DA93A5A00735009;
 					};
 				};
 			};
@@ -213,28 +152,20 @@
 			projectRoot = "";
 			targets = (
 				EE5CB3E82DA93A5A00735009 /* RickMorty */,
-				EE5CB3F82DA93A5C00735009 /* RickMortyTests */,
-				EE5CB4022DA93A5C00735009 /* RickMortyUITests */,
+				EE0D341D2DA9AEB700116C22 /* RickMortyTest */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		EE0D341C2DA9AEB700116C22 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EE5CB3E72DA93A5A00735009 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		EE5CB3F72DA93A5C00735009 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		EE5CB4012DA93A5C00735009 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -244,21 +175,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		EE0D341A2DA9AEB700116C22 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EE5CB3E52DA93A5A00735009 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		EE5CB3F52DA93A5C00735009 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		EE5CB3FF2DA93A5C00735009 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -268,19 +192,48 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		EE5CB3FB2DA93A5C00735009 /* PBXTargetDependency */ = {
+		EE0D34232DA9AEB700116C22 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = EE5CB3E82DA93A5A00735009 /* RickMorty */;
-			targetProxy = EE5CB3FA2DA93A5C00735009 /* PBXContainerItemProxy */;
-		};
-		EE5CB4052DA93A5C00735009 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = EE5CB3E82DA93A5A00735009 /* RickMorty */;
-			targetProxy = EE5CB4042DA93A5C00735009 /* PBXContainerItemProxy */;
+			targetProxy = EE0D34222DA9AEB700116C22 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		EE0D34252DA9AEB700116C22 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = anna.RickMortyTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RickMorty.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/RickMorty";
+			};
+			name = Debug;
+		};
+		EE0D34262DA9AEB700116C22 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = anna.RickMortyTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RickMorty.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/RickMorty";
+			};
+			name = Release;
+		};
 		EE5CB40B2DA93A5C00735009 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -458,77 +411,18 @@
 			};
 			name = Release;
 		};
-		EE5CB4112DA93A5C00735009 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = anna.RickMortyTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RickMorty.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/RickMorty";
-			};
-			name = Debug;
-		};
-		EE5CB4122DA93A5C00735009 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = anna.RickMortyTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RickMorty.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/RickMorty";
-			};
-			name = Release;
-		};
-		EE5CB4142DA93A5C00735009 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = anna.RickMortyUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = RickMorty;
-			};
-			name = Debug;
-		};
-		EE5CB4152DA93A5C00735009 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = anna.RickMortyUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = RickMorty;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		EE0D34242DA9AEB700116C22 /* Build configuration list for PBXNativeTarget "RickMortyTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE0D34252DA9AEB700116C22 /* Debug */,
+				EE0D34262DA9AEB700116C22 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		EE5CB3E42DA93A5A00735009 /* Build configuration list for PBXProject "RickMorty" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -543,24 +437,6 @@
 			buildConfigurations = (
 				EE5CB40E2DA93A5C00735009 /* Debug */,
 				EE5CB40F2DA93A5C00735009 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		EE5CB4102DA93A5C00735009 /* Build configuration list for PBXNativeTarget "RickMortyTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				EE5CB4112DA93A5C00735009 /* Debug */,
-				EE5CB4122DA93A5C00735009 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		EE5CB4132DA93A5C00735009 /* Build configuration list for PBXNativeTarget "RickMortyUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				EE5CB4142DA93A5C00735009 /* Debug */,
-				EE5CB4152DA93A5C00735009 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

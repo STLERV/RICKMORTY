@@ -6,11 +6,11 @@
 //
 import Foundation
 
-protocol APIService {
+protocol APIServiceProtocol {
     func fetchCharacters(page: Int) async throws -> [CharacterDTO]
 }
 
-struct DefaultAPIService: APIService {
+struct APIService: APIServiceProtocol {
     func fetchCharacters(page: Int) async throws -> [CharacterDTO] {
         guard let url = URL(string: "\(Endpoints.baseURL)/character?page=\(page)") else {
             throw NSError(domain: "NetworkError", code: 1001, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])

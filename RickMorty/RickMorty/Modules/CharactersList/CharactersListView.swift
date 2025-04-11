@@ -11,7 +11,11 @@ struct CharacterListView: View {
 
     var body: some View {
         NavigationStack {
-                    List(viewModel.characters) { character in
+            ZStack {
+                List(viewModel.characters) { character in
+                    NavigationLink {
+                        CharacterDetailView(viewModel: CharacterDetailViewModel(character: character))
+                    } label: {
                         HStack {
                             AsyncImage(url: character.imageURL) { image in
                                 image.resizable()
@@ -32,19 +36,40 @@ struct CharacterListView: View {
                                     .foregroundColor(.gray)
                             }
                         }
-                        .onAppear {
-                               if character.id == viewModel.characters.last?.id {
-                                   Task {
-                                       await viewModel.fetchCharacters()
-                                   }
-                               }
-                           }
                         .padding(.vertical, 4)
+                        .onAppear {
+                            if character.id == viewModel.characters.last?.id {
+                                Task {
+                                    await viewModel.fetchCharacters()
+                                }
+                            }
+                        }
                     }
+                }
+                .listStyle(.plain)
+
+                if viewModel.isLoading && viewModel.characters.isEmpty {
+                    ProgressView("Cargando personajes...")
+                        .padding()
+                        .background(.ultraThinMaterial)
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                }
+            }
             .navigationTitle("Personajes")
         }
         .task {
             await viewModel.fetchCharacters()
         }
+        .errorAlert(
+            message: viewModel.errorMessage,
+            onRetry: {
+                Task {
+                    await viewModel.fetchCharacters()
+                }
+            },
+            onDismiss: {
+                viewModel.dismissError()
+            }
+        )
     }
 }

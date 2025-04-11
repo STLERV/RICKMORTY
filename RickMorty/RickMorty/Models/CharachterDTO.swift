@@ -14,7 +14,17 @@ struct CharacterDTO: Codable, Identifiable {
     let species: String
     let type: String
     let gender: String
+    let origin: LocationDTO
+    let location: LocationDTO
     let image: String
+    let episode: [String]
+    let url: String
+    let created: String
+}
+
+struct LocationDTO: Codable {
+    let name: String
+    let url: String
 }
 
 struct CharacterResponse: Codable {
