@@ -1,0 +1,15 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Hello, world!" : {
+
+    },
+    "Key" : {
+      "extractionState" : "manual"
+    },
+    "Personajes" : {
+
+    }
+  },
+  "version" : "1.0"
+}
