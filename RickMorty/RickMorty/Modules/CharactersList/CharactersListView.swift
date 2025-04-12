@@ -31,7 +31,7 @@ struct CharacterListView: View {
                                 Text(character.species)
                                     .font(.subheadline)
                                     .foregroundColor(.gray)
-                                Text(character.status)
+                                Text(character.gender)
                                     .font(.subheadline)
                                     .foregroundColor(.gray)
                             }

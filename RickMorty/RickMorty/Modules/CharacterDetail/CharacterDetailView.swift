@@ -14,7 +14,6 @@ struct CharacterDetailView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
-                // Imagen
                 AsyncImage(url: viewModel.imageURL) { image in
                     image
                         .resizable()
@@ -36,7 +35,9 @@ struct CharacterDetailView: View {
                         .padding(.bottom, 8)
                         .frame(maxWidth: .infinity, alignment: .center)
 
-                    DetailRow(label: "Status", value: viewModel.status, statusColor: viewModel.statusColor)
+                    DetailRow(label: "Status",
+                              value: viewModel.status,
+                              statusColor: viewModel.statusColor)
                     DetailRow(label: "Species", value: viewModel.species)
                     DetailRow(label: "Gender", value: viewModel.gender)
                     DetailRow(label: "Type", value: viewModel.type)
@@ -44,16 +45,9 @@ struct CharacterDetailView: View {
                     DetailRow(label: "Location", value: viewModel.location)
                     DetailRow(label: "Episodes", value: viewModel.episodesCount)
                 }
-            
-                .background(.white)
-//                .clipShape(RoundedRectangle(cornerRadius: 16))
-//                .shadow(radius: 5)
                 .padding()
             }
         }
-//        .background(Color(.systemGroupedBackground))
-//        .navigationTitle("")
-//        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
@@ -73,11 +67,13 @@ private struct DetailRow: View {
                 Text(value)
                     .foregroundColor(.gray)
             } else {
-//                Spacer()
                 Text(value)
                     .foregroundColor(.gray)
             }
-//            Spacer()
         }
     }
+}
+
+#Preview {
+    CharacterDetailView(viewModel: CharacterDetailViewModel(character: .mockRick))
 }

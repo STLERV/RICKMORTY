@@ -19,6 +19,7 @@ struct Character: Identifiable {
     let imageURL: URL?
     let episodeCount: Int
 
+
     init(dto: CharacterDTO) {
         self.id = dto.id
         self.name = dto.name
@@ -30,5 +31,30 @@ struct Character: Identifiable {
         self.locationName = dto.location.name
         self.imageURL = URL(string: dto.image)
         self.episodeCount = dto.episode.count
+    }
+
+
+    init(
+        id: Int,
+        name: String,
+        status: String,
+        species: String,
+        type: String,
+        gender: String,
+        originName: String,
+        locationName: String,
+        imageURL: URL?,
+        episodeCount: Int
+    ) {
+        self.id = id
+        self.name = name
+        self.status = status
+        self.species = species
+        self.type = type
+        self.gender = gender
+        self.originName = originName
+        self.locationName = locationName
+        self.imageURL = imageURL
+        self.episodeCount = episodeCount
     }
 }
