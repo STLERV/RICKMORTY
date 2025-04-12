@@ -7,6 +7,17 @@
 
 import Foundation
 
+struct CharactersPage {
+    let characters: [Character]
+    let hasMore: Bool
+    let isFromCache: Bool
+
+    init(characters: [Character], hasMore: Bool, isFromCache: Bool = false) {
+        self.characters = characters
+        self.hasMore = hasMore
+        self.isFromCache = isFromCache
+    }
+}
 struct Character: Identifiable {
     let id: Int
     let name: String

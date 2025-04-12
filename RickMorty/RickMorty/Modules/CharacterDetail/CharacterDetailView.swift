@@ -6,27 +6,25 @@
 //
 import SwiftUI
 
-import SwiftUI
-
 struct CharacterDetailView: View {
     @StateObject var viewModel: CharacterDetailViewModel
 
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
-                AsyncImage(url: viewModel.imageURL) { image in
-                    image
-                        .resizable()
-                        .scaledToFill()
-                        .frame(height: 300)
-                        .clipped()
-                } placeholder: {
-                    ZStack {
-                        Color.gray.opacity(0.1)
+                CachedAsyncImage(
+                    url: viewModel.imageURL,
+                    placeholder: {
                         ProgressView()
+                    },
+                    content: { image in
+                        image
+                            .resizable()
+                            .scaledToFill()
                     }
-                    .frame(height: 300)
-                }
+                )
+                .frame(height: 300)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
 
                 VStack(alignment: .leading, spacing: 18) {
                     Text(viewModel.title)

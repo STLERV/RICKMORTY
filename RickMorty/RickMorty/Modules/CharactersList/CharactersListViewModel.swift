@@ -13,43 +13,67 @@ class CharacterListViewModel: ObservableObject {
     @Published var errorMessage: String?
 
     private var currentPage = 1
-    private let characterService: CharacterServiceProtocol
     private var isLastPage = false
+
+    private let characterService: CharacterServiceProtocol
 
     init(characterService: CharacterServiceProtocol = CharacterService()) {
         self.characterService = characterService
     }
 
     func fetchCharacters() async {
-        guard !isLoading && !isLastPage else { return }
+        guard shouldFetchNextPage else { return }
 
-        isLoading = true
-        errorMessage = nil
+        startLoading()
 
         do {
-            let dtos = try await characterService.fetchCharacters(page: currentPage)
-            let newCharacters = dtos.map { Character(dto: $0) }
-
-            characters.append(contentsOf: newCharacters)
-            currentPage += 1
-
-            if dtos.isEmpty {
-                isLastPage = true
-            }
+            let page = try await characterService.fetchCharacters(page: currentPage)
+            appendCharacters(from: page)
+            handleCacheStatusIfNeeded(from: page)
         } catch {
-            errorMessage = "Ha ocurrido un error. Inténtalo de nuevo."
+            handleError()
         }
 
-        isLoading = false
+        stopLoading()
     }
 
-    func dismissError() {
-        errorMessage = nil
-    }
-    
     func retryLoading() {
+        errorMessage = nil
         Task {
             await fetchCharacters()
         }
+    }
+
+    private var shouldFetchNextPage: Bool {
+        let aa = !isLoading && !isLastPage
+        print(aa)
+       return  !isLoading && !isLastPage
+    }
+
+    private func startLoading() {
+        isLoading = true
+        errorMessage = nil
+    }
+
+    private func stopLoading() {
+        isLoading = false
+    }
+
+    private func appendCharacters(from page: CharactersPage) {
+        characters.append(contentsOf: page.characters)
+        if !page.isFromCache {
+            isLastPage = !page.hasMore
+        }
+        currentPage += 1
+    }
+
+    private func handleCacheStatusIfNeeded(from page: CharactersPage) {
+        if page.isFromCache {
+            errorMessage = "You're viewing offline data. Please reconnect to update."
+        }
+    }
+
+    private func handleError() {
+        errorMessage = "Error. Please try again."
     }
 }

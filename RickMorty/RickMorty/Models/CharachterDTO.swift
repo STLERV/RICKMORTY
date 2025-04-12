@@ -28,5 +28,13 @@ struct LocationDTO: Codable {
 }
 
 struct CharacterResponse: Codable {
+    let info: PageInfo
     let results: [CharacterDTO]
+}
+
+struct PageInfo: Codable {
+    let count: Int
+    let pages: Int
+    let next: String?
+    let prev: String?
 }

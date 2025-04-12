@@ -7,18 +7,16 @@
 import Foundation
 
 protocol APIServiceProtocol {
-    func fetchCharacters(page: Int) async throws -> [CharacterDTO]
+    func fetchCharacters(page: Int) async throws -> CharacterResponse
 }
 
 struct APIService: APIServiceProtocol {
-    func fetchCharacters(page: Int) async throws -> [CharacterDTO] {
+    func fetchCharacters(page: Int) async throws -> CharacterResponse {
         guard let url = URL(string: "\(Endpoints.baseURL)/character?page=\(page)") else {
-            throw NSError(domain: "NetworkError", code: 1001, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])
+            throw NSError(domain: "NetworkError", code: 1001)
         }
-        
+
         let (data, _) = try await URLSession.shared.data(from: url)
-        let decoded = try JSONDecoder().decode(CharacterResponse.self, from: data)
-        return decoded.results
+        return try JSONDecoder().decode(CharacterResponse.self, from: data)
     }
 }
-

@@ -4,7 +4,7 @@
     "%@:" : {
 
     },
-    "Cancelar" : {
+    "Cancel" : {
 
     },
     "Cargando personajes..." : {
@@ -13,16 +13,13 @@
     "Error" : {
 
     },
-    "Hello, world!" : {
-
-    },
     "Key" : {
       "extractionState" : "manual"
     },
     "Personajes" : {
 
     },
-    "Reintentar" : {
+    "Retry" : {
 
     }
   },

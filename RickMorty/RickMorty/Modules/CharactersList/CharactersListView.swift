@@ -17,14 +17,20 @@ struct CharacterListView: View {
                         CharacterDetailView(viewModel: CharacterDetailViewModel(character: character))
                     } label: {
                         HStack {
-                            AsyncImage(url: character.imageURL) { image in
-                                image.resizable()
-                            } placeholder: {
-                                ProgressView()
-                            }
+                            CachedAsyncImage(
+                                url: character.imageURL,
+                                placeholder: {
+                                    ProgressView()
+                                },
+                                content: { image in
+                                    image
+                                        .resizable()
+                                        .scaledToFill()
+                                }
+                            )
                             .frame(width: 60, height: 60)
                             .clipShape(RoundedRectangle(cornerRadius: 10))
-
+                            
                             VStack(alignment: .leading) {
                                 Text(character.name)
                                     .font(.headline)
@@ -47,7 +53,7 @@ struct CharacterListView: View {
                     }
                 }
                 .listStyle(.plain)
-
+                
                 if viewModel.isLoading && viewModel.characters.isEmpty {
                     ProgressView("Cargando personajes...")
                         .padding()
@@ -60,16 +66,9 @@ struct CharacterListView: View {
         .task {
             await viewModel.fetchCharacters()
         }
-        .errorAlert(
-            message: viewModel.errorMessage,
-            onRetry: {
-                Task {
-                    await viewModel.fetchCharacters()
-                }
-            },
-            onDismiss: {
-                viewModel.dismissError()
-            }
-        )
+        .errorAlert(message: $viewModel.errorMessage) {
+            viewModel.retryLoading()
+        }
     }
 }
+

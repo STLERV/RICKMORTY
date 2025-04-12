@@ -7,27 +7,30 @@
 import SwiftUI
 
 struct ErrorAlert: ViewModifier {
-    let errorMessage: String?
+    @Binding var message: String?
     let onRetry: () -> Void
-    let onDismiss: () -> Void
 
     func body(content: Content) -> some View {
         content
-            .alert("Error", isPresented: .constant(errorMessage != nil), actions: {
-                Button("Reintentar") {
-                    onRetry()
-                }
-                Button("Cancelar", role: .cancel) {
-                    onDismiss()
-                }
-            }, message: {
-                Text(errorMessage ?? "")
-            })
+            .alert("Error",
+                   isPresented: Binding<Bool>(
+                       get: { message != nil },
+                       set: { if !$0 { message = nil } }
+                   ),
+                   actions: {
+                       Button("Retry", action: onRetry)
+                       Button("Cancel", role: .cancel) {
+                           message = nil
+                       }
+                   },
+                   message: {
+                       Text(message ?? "")
+                   })
     }
 }
 
 extension View {
-    func errorAlert(message: String?, onRetry: @escaping () -> Void, onDismiss: @escaping () -> Void) -> some View {
-        self.modifier(ErrorAlert(errorMessage: message, onRetry: onRetry, onDismiss: onDismiss))
+    func errorAlert(message: Binding<String?>, onRetry: @escaping () -> Void) -> some View {
+        self.modifier(ErrorAlert(message: message, onRetry: onRetry))
     }
 }
