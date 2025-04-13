@@ -7,16 +7,12 @@
 import Foundation
 
 protocol APIServiceProtocol {
-    func fetchCharacters(page: Int) async throws -> CharacterResponse
+    func request<T: Decodable>(_ url: URL) async throws -> T
 }
 
 struct APIService: APIServiceProtocol {
-    func fetchCharacters(page: Int) async throws -> CharacterResponse {
-        guard let url = URL(string: "\(Endpoints.baseURL)/character?page=\(page)") else {
-            throw NSError(domain: "NetworkError", code: 1001)
-        }
-
+    func request<T: Decodable>(_ url: URL) async throws -> T {
         let (data, _) = try await URLSession.shared.data(from: url)
-        return try JSONDecoder().decode(CharacterResponse.self, from: data)
+        return try JSONDecoder().decode(T.self, from: data)
     }
 }

@@ -6,6 +6,8 @@
 //
 import Foundation
 
+import Foundation
+
 protocol CharacterServiceProtocol {
     func fetchCharacters(page: Int) async throws -> CharactersPage
 }
@@ -27,7 +29,8 @@ final class CharacterService: CharacterServiceProtocol {
             let response = try await loadCharactersFromAPI(page: page)
             return CharactersPage(
                 characters: response.results.map { Character(dto: $0) },
-                hasMore: response.info.next != nil
+                hasMore: response.info.next != nil,
+                isFromCache: false
             )
         } catch {
             return try await fallbackToCache(for: page, error: error)
@@ -35,20 +38,23 @@ final class CharacterService: CharacterServiceProtocol {
     }
 
     private func loadCharactersFromAPI(page: Int) async throws -> CharacterResponse {
-        let response = try await apiService.fetchCharacters(page: page)
+        guard let url = URL(string: "\(Endpoints.baseURL)/character?page=\(page)") else {
+            throw URLError(.badURL)
+        }
+
+        let response: CharacterResponse = try await apiService.request(url)
 
         if !response.results.isEmpty {
             await cacheManager.saveCharacters(response.results, for: page)
         }
-
         return response
     }
 
     private func fallbackToCache(for page: Int, error: Error) async throws -> CharactersPage {
-        if let cached = await cacheManager.loadCharacters(for: page) {
+        if let cached = await cacheManager.loadCharacters(for: page), !cached.isEmpty {
             return CharactersPage(
                 characters: cached.map { Character(dto: $0) },
-                hasMore: true,
+                hasMore: false,
                 isFromCache: true
             )
         }
