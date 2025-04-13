@@ -8,7 +8,7 @@ import SwiftUI
 
 struct CharacterDetailView: View {
     @StateObject var viewModel: CharacterDetailViewModel
-
+    
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
@@ -25,14 +25,14 @@ struct CharacterDetailView: View {
                 )
                 .frame(height: 300)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
-
+                
                 VStack(alignment: .leading, spacing: 18) {
                     Text(viewModel.title)
                         .font(.title)
                         .fontWeight(.bold)
                         .padding(.bottom, 8)
                         .frame(maxWidth: .infinity, alignment: .center)
-
+                    
                     DetailRow(label: "Status",
                               value: viewModel.status,
                               statusColor: viewModel.statusColor)
@@ -53,7 +53,7 @@ private struct DetailRow: View {
     let label: String
     let value: String
     var statusColor: Color? = nil
-
+    
     var body: some View {
         HStack {
             Text("\(label):")

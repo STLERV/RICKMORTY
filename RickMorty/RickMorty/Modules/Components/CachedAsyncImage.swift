@@ -28,12 +28,11 @@ struct CachedAsyncImage<Content: View, Placeholder: View>: View {
 
     private func loadImage() async {
         guard let url else { return }
-
+        
         if let cached = ImageCache.shared.image(for: url) {
             uiImage = cached
             return
         }
-
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
             if let image = UIImage(data: data) {
@@ -41,9 +40,9 @@ struct CachedAsyncImage<Content: View, Placeholder: View>: View {
                 uiImage = image
             }
         } catch {
-            #if DEBUG
+        #if DEBUG
             print("Image load failed for \(url): \(error.localizedDescription)")
-            #endif
+        #endif
         }
     }
 }

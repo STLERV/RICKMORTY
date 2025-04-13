@@ -6,31 +6,30 @@
 //
 import SwiftUI
 
+struct IdentifiableError: Identifiable {
+    let id = UUID()
+    let message: String
+}
+
 struct ErrorAlert: ViewModifier {
-    @Binding var message: String?
+    @Binding var error: IdentifiableError?
     let onRetry: () -> Void
 
     func body(content: Content) -> some View {
         content
-            .alert("Error",
-                   isPresented: Binding<Bool>(
-                       get: { message != nil },
-                       set: { if !$0 { message = nil } }
-                   ),
-                   actions: {
-                       Button("Retry", action: onRetry)
-                       Button("Cancel", role: .cancel) {
-                           message = nil
-                       }
-                   },
-                   message: {
-                       Text(message ?? "")
-                   })
+            .alert(item: $error) { error in
+                Alert(
+                    title: Text("Error"),
+                    message: Text(error.message),
+                    primaryButton: .default(Text("Retry"), action: onRetry),
+                    secondaryButton: .cancel(Text("Cancel"))
+                )
+            }
     }
 }
 
 extension View {
-    func errorAlert(message: Binding<String?>, onRetry: @escaping () -> Void) -> some View {
-        self.modifier(ErrorAlert(message: message, onRetry: onRetry))
+    func errorAlert(error: Binding<IdentifiableError?>, onRetry: @escaping () -> Void) -> some View {
+        self.modifier(ErrorAlert(error: error, onRetry: onRetry))
     }
 }

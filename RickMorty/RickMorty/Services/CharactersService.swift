@@ -34,7 +34,7 @@ final class CharacterService: CharacterServiceProtocol {
         guard let url = URL(string: "\(Endpoints.baseURL)/character?page=\(page)&name=\(encoded)") else {
             throw URLError(.badURL)
         }
-
+        
         do {
             return try await loadCharacters(from: url, page: page, isSearch: true)
         } catch {

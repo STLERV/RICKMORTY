@@ -10,33 +10,26 @@ import SwiftUI
 class CharacterListViewModel: ObservableObject {
     @Published var characters: [Character] = []
     @Published var isLoading = false
-    @Published var errorMessage: String?
+    @Published var errorMessage: IdentifiableError?
     @Published var searchQuery: String = ""
-
+    
     private var currentPage = 1
     private var isLastPage = false
-    private var didLoadOfflineOnce = false
-
+    
     private let characterService: CharacterServiceProtocol
-
+    
     init(characterService: CharacterServiceProtocol = CharacterService()) {
         self.characterService = characterService
     }
 
-    var displayedCharacters: [Character] {
-        characters
-    }
-
     func fetchCharacters() async {
         guard !isLoading && !isLastPage else { return }
-
         startLoading()
-     
         do {
             let page = try await loadCharacters()
-
+            
             if page.isFromCache {
-                errorMessage = "You're viewing offline data. Please reconnect."
+                errorMessage = IdentifiableError(message: "You're viewing offline data. Please reconnect.")
             }
 
             characters.append(contentsOf: page.characters)
@@ -44,10 +37,9 @@ class CharacterListViewModel: ObservableObject {
             if !page.isFromCache {
                 isLastPage = !page.hasMore
             }
-
             currentPage += 1
         } catch {
-            errorMessage = error.localizedDescription
+            errorMessage = IdentifiableError(message: error.localizedDescription)
         }
         stopLoading()
     }
@@ -56,7 +48,8 @@ class CharacterListViewModel: ObservableObject {
         if searchQuery.isEmpty {
             return try await characterService.fetchCharacters(page: currentPage)
         } else {
-            return try await characterService.searchCharacters(name: searchQuery, page: currentPage)
+            return try await characterService.searchCharacters(name: searchQuery,
+                                                               page: currentPage)
         }
     }
 
@@ -92,6 +85,5 @@ class CharacterListViewModel: ObservableObject {
         characters = []
         currentPage = 1
         isLastPage = false
-        didLoadOfflineOnce = false
     }
 }

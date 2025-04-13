@@ -13,15 +13,15 @@ protocol CacheManagerProtocol {
 
 final class CacheManager: CacheManagerProtocol {
     static let shared = CacheManager()
-
+    
     private func fileURL(for page: Int) -> URL? {
         FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first?
             .appendingPathComponent("characters_page_\(page).json")
     }
-
+    
     func saveCharacters(_ characters: [CharacterDTO], for page: Int) async {
         guard let url = fileURL(for: page) else { return }
-
+        
         do {
             let data = try JSONEncoder().encode(characters)
             try data.write(to: url, options: .atomic)
@@ -31,17 +31,17 @@ final class CacheManager: CacheManagerProtocol {
             #endif
         }
     }
-
+    
     func loadCharacters(for page: Int) async -> [CharacterDTO]? {
         guard let url = fileURL(for: page) else { return nil }
-
+        
         do {
             let data = try Data(contentsOf: url)
             return try JSONDecoder().decode([CharacterDTO].self, from: data)
         } catch {
-            #if DEBUG
+        #if DEBUG
             print("Error loading cached page \(page): \(error.localizedDescription)")
-            #endif
+        #endif
             return nil
         }
     }

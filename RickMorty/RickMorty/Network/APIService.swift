@@ -17,7 +17,7 @@ struct APIService: APIServiceProtocol {
             guard let httpResponse = response as? HTTPURLResponse else {
                 throw URLError(.badServerResponse)
             }
-
+            
             if !(200...299).contains(httpResponse.statusCode) {
                 throw URLError(.init(rawValue: httpResponse.statusCode))
             }

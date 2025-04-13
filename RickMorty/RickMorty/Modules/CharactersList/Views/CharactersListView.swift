@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CharacterListView: View {
     @StateObject private var viewModel = CharacterListViewModel()
-
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -22,9 +22,9 @@ struct CharacterListView: View {
                         viewModel.clearSearch()
                     }
                 )
-
+                
                 ZStack {
-                    List(viewModel.displayedCharacters) { character in
+                    List(viewModel.characters) { character in
                         NavigationLink {
                             CharacterDetailView(viewModel: CharacterDetailViewModel(character: character))
                         } label: {
@@ -37,21 +37,21 @@ struct CharacterListView: View {
                         }
                     }
                     .listStyle(.plain)
-
+                    
                     if viewModel.isLoading && viewModel.characters.isEmpty {
-                        ProgressView("Cargando personajes...")
+                        ProgressView("Loading characters...")
                             .padding()
                             .background(.ultraThinMaterial)
                             .clipShape(RoundedRectangle(cornerRadius: 12))
                     }
                 }
             }
-            .navigationTitle("Personajes")
+            .navigationTitle("Characters")
         }
         .task {
             await viewModel.fetchCharacters()
         }
-        .errorAlert(message: $viewModel.errorMessage) {
+        .errorAlert(error: $viewModel.errorMessage) {
             viewModel.retryLoading()
         }
     }

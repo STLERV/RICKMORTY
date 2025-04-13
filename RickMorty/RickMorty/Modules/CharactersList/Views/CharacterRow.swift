@@ -24,7 +24,7 @@ struct CharacterRow: View {
             )
             .frame(width: 60, height: 60)
             .clipShape(RoundedRectangle(cornerRadius: 10))
-
+            
             VStack(alignment: .leading) {
                 Text(character.name)
                     .font(.headline)

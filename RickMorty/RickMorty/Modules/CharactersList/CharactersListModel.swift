@@ -18,6 +18,7 @@ struct CharactersPage {
         self.isFromCache = isFromCache
     }
 }
+
 struct Character: Identifiable {
     let id: Int
     let name: String
@@ -43,7 +44,6 @@ struct Character: Identifiable {
         self.imageURL = URL(string: dto.image)
         self.episodeCount = dto.episode.count
     }
-
 
     init(
         id: Int,
