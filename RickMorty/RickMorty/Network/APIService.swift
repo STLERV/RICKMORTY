@@ -6,18 +6,25 @@
 //
 import Foundation
 
-protocol APIService {
-    func fetchCharacters() async throws -> [CharacterDTO]
+protocol APIServiceProtocol {
+    func request<T: Decodable>(_ url: URL) async throws -> T
 }
 
-struct DefaultAPIService: APIService {
-    func fetchCharacters() async throws -> [CharacterDTO] {
-        guard let url = Endpoints.characters else {
-            //TODO: handle error
-            throw NSError(domain: "network error", code: 0, userInfo: nil) }
-        let (data, _) = try await URLSession.shared.data(from: url)
-        let decoded = try JSONDecoder().decode(CharacterResponse.self, from: data)
-        return decoded.results
+struct APIService: APIServiceProtocol {
+    func request<T: Decodable>(_ url: URL) async throws -> T {
+        do {
+            let (data, response) = try await URLSession.shared.data(from: url)
+            guard let httpResponse = response as? HTTPURLResponse else {
+                throw URLError(.badServerResponse)
+            }
+            
+            if !(200...299).contains(httpResponse.statusCode) {
+                throw URLError(.init(rawValue: httpResponse.statusCode))
+            }
+            return try JSONDecoder().decode(T.self, from: data)
+            
+        } catch {
+            throw error
+        }
     }
 }
-
