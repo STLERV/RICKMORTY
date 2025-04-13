@@ -12,7 +12,19 @@ protocol APIServiceProtocol {
 
 struct APIService: APIServiceProtocol {
     func request<T: Decodable>(_ url: URL) async throws -> T {
-        let (data, _) = try await URLSession.shared.data(from: url)
-        return try JSONDecoder().decode(T.self, from: data)
+        do {
+            let (data, response) = try await URLSession.shared.data(from: url)
+            guard let httpResponse = response as? HTTPURLResponse else {
+                throw URLError(.badServerResponse)
+            }
+
+            if !(200...299).contains(httpResponse.statusCode) {
+                throw URLError(.init(rawValue: httpResponse.statusCode))
+            }
+            return try JSONDecoder().decode(T.self, from: data)
+            
+        } catch {
+            throw error
+        }
     }
 }

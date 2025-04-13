@@ -4,12 +4,12 @@
 //
 //  Created by AnnaPersonalDev on 11/4/25.
 //
-import Foundation
 
 import Foundation
 
 protocol CharacterServiceProtocol {
     func fetchCharacters(page: Int) async throws -> CharactersPage
+    func searchCharacters(name: String, page: Int) async throws -> CharactersPage
 }
 
 final class CharacterService: CharacterServiceProtocol {
@@ -25,39 +25,52 @@ final class CharacterService: CharacterServiceProtocol {
     }
 
     func fetchCharacters(page: Int) async throws -> CharactersPage {
+        let url = URL(string: "\(Endpoints.baseURL)/character?page=\(page)")!
+        return try await loadCharacters(from: url, page: page)
+    }
+
+    func searchCharacters(name: String, page: Int) async throws -> CharactersPage {
+        let encoded = name.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? name
+        guard let url = URL(string: "\(Endpoints.baseURL)/character?page=\(page)&name=\(encoded)") else {
+            throw URLError(.badURL)
+        }
+
         do {
-            let response = try await loadCharactersFromAPI(page: page)
+            return try await loadCharacters(from: url, page: page, isSearch: true)
+        } catch {
+            if let nsError = error as NSError?, nsError.code == 404 {
+                return CharactersPage(
+                    characters: [],
+                    hasMore: false,
+                    isFromCache: false
+                )
+            }
+            throw error
+        }
+    }
+
+    private func loadCharacters(from url: URL, page: Int, isSearch: Bool = false) async throws -> CharactersPage {
+        do {
+            let response: CharacterResponse = try await apiService.request(url)
+            if !isSearch {
+                await cacheManager.saveCharacters(response.results, for: page)
+            }
             return CharactersPage(
                 characters: response.results.map { Character(dto: $0) },
                 hasMore: response.info.next != nil,
                 isFromCache: false
             )
         } catch {
-            return try await fallbackToCache(for: page, error: error)
+            if !isSearch,
+               let cached = await cacheManager.loadCharacters(for: page),
+               !cached.isEmpty {
+                return CharactersPage(
+                    characters: cached.map { Character(dto: $0) },
+                    hasMore: true,
+                    isFromCache: true
+                )
+            }
+            throw error
         }
-    }
-
-    private func loadCharactersFromAPI(page: Int) async throws -> CharacterResponse {
-        guard let url = URL(string: "\(Endpoints.baseURL)/character?page=\(page)") else {
-            throw URLError(.badURL)
-        }
-
-        let response: CharacterResponse = try await apiService.request(url)
-
-        if !response.results.isEmpty {
-            await cacheManager.saveCharacters(response.results, for: page)
-        }
-        return response
-    }
-
-    private func fallbackToCache(for page: Int, error: Error) async throws -> CharactersPage {
-        if let cached = await cacheManager.loadCharacters(for: page), !cached.isEmpty {
-            return CharactersPage(
-                characters: cached.map { Character(dto: $0) },
-                hasMore: false,
-                isFromCache: true
-            )
-        }
-        throw error
     }
 }

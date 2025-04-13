@@ -3,7 +3,7 @@
 //  RickMorty
 //
 //  Created by AnnaPersonalDev on 11/4/25.
-//
+
 import SwiftUI
 
 @MainActor
@@ -11,9 +11,11 @@ class CharacterListViewModel: ObservableObject {
     @Published var characters: [Character] = []
     @Published var isLoading = false
     @Published var errorMessage: String?
+    @Published var searchQuery: String = ""
 
     private var currentPage = 1
     private var isLastPage = false
+    private var didLoadOfflineOnce = false
 
     private let characterService: CharacterServiceProtocol
 
@@ -21,20 +23,41 @@ class CharacterListViewModel: ObservableObject {
         self.characterService = characterService
     }
 
+    var displayedCharacters: [Character] {
+        characters
+    }
+
     func fetchCharacters() async {
-        guard shouldFetchNextPage else { return }
+        guard !isLoading && !isLastPage else { return }
 
         startLoading()
-
+     
         do {
-            let page = try await characterService.fetchCharacters(page: currentPage)
-            appendCharacters(from: page)
-            handleCacheStatusIfNeeded(from: page)
-        } catch {
-            handleError()
-        }
+            let page = try await loadCharacters()
 
+            if page.isFromCache {
+                errorMessage = "You're viewing offline data. Please reconnect."
+            }
+
+            characters.append(contentsOf: page.characters)
+
+            if !page.isFromCache {
+                isLastPage = !page.hasMore
+            }
+
+            currentPage += 1
+        } catch {
+            errorMessage = error.localizedDescription
+        }
         stopLoading()
+    }
+
+    private func loadCharacters() async throws -> CharactersPage {
+        if searchQuery.isEmpty {
+            return try await characterService.fetchCharacters(page: currentPage)
+        } else {
+            return try await characterService.searchCharacters(name: searchQuery, page: currentPage)
+        }
     }
 
     func retryLoading() {
@@ -44,10 +67,16 @@ class CharacterListViewModel: ObservableObject {
         }
     }
 
-    private var shouldFetchNextPage: Bool {
-        let aa = !isLoading && !isLastPage
-        print(aa)
-       return  !isLoading && !isLastPage
+    func startSearch(with query: String) {
+        reset()
+        searchQuery = query
+        Task {
+            await fetchCharacters()
+        }
+    }
+
+    func clearSearch() {
+        startSearch(with: "")
     }
 
     private func startLoading() {
@@ -59,21 +88,10 @@ class CharacterListViewModel: ObservableObject {
         isLoading = false
     }
 
-    private func appendCharacters(from page: CharactersPage) {
-        characters.append(contentsOf: page.characters)
-        if !page.isFromCache {
-            isLastPage = !page.hasMore
-        }
-        currentPage += 1
-    }
-
-    private func handleCacheStatusIfNeeded(from page: CharactersPage) {
-        if page.isFromCache {
-            errorMessage = "You're viewing offline data. Please reconnect to update."
-        }
-    }
-
-    private func handleError() {
-        errorMessage = "Error. Please try again."
+    private func reset() {
+        characters = []
+        currentPage = 1
+        isLastPage = false
+        didLoadOfflineOnce = false
     }
 }
